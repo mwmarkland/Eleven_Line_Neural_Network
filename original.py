@@ -26,12 +26,14 @@ def nonlin(x,deriv=False):
 
 # input dataset
 X = np.array([ [0,0,1],
+               [0,1,0],
                [0,1,1],
                [1,0,1],
-               [1,1,1] ])
+               [1,1,0],
+               [1,0,0] ])
  
 # output dataset
-y = np.array([[0,0,1,1]]).T
+y = np.array([[0,0,0,1,1,1]]).T
 
 # seed random numbers to make calculation
 # deterministic (just a good practice)
@@ -55,7 +57,7 @@ np.random.seed(1)
 
 synapse0 = 2 * np.random.random((3,1)) - 1
 
-for iter in xrange(10000):
+for iter in xrange(100000):
 
     # forward propagation step
     layer0 = X
@@ -81,6 +83,20 @@ for iter in xrange(10000):
 
 # end loop
 print("Output after training: ")
+print(layer1)
+print("Weights after training: ")
+print(synapse0)
+# Try out something it wasn't taught.
+print("Trying [0,0,0].")
+layer1 = nonlin(np.dot(np.array([0,0,0]),synapse0))
+print(layer1)
+
+print("Trying [0,1,1].")
+layer1 = nonlin(np.dot(np.array([0,1,1]),synapse0))
+print(layer1)
+
+print("Trying [1,1,1].")
+layer1 = nonlin(np.dot(np.array([1,1,1]),synapse0))
 print(layer1)
 
 #END MAIN
